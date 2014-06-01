@@ -1,0 +1,17 @@
+*.dll
+*.a
+*.o
+*.exe
+*.obj
+/bin
+\bin
+cbin/
+cbin\
+*.dll.a
+lib/
+lib\
+*.depend
+*.layout
+*.cbp
+*.disabled
+Gravity\cbin
