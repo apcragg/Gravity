@@ -10,6 +10,7 @@
 #include "EngineObject.h"
 #include "Shader.h"
 #include "ValueMap.h"
+#include "Mesh.h"
 
 class EngineObject;
 class Shader;

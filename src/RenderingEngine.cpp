@@ -16,6 +16,11 @@ void RenderingEngine::initialize()
 
     glClearColor(0.65f, 0.5f, 0.9f, 1.0f);
 
+    for(int i = 0; i < 20; i++)
+    {
+        Mesh m("test");
+    }
+
     //setting up shaders
 
     m_value_map = new ValueMap;
@@ -57,7 +62,7 @@ RenderingEngine::~RenderingEngine()
     for(auto it = m_shader_list.begin(); it != m_shader_list.end(); it++)
     {
         //deletes the second value of the pair currently pointed to by the iterator
-        delete (*it).second;
+        delete it->second;
     }
 
     delete m_value_map;
