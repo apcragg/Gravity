@@ -105,8 +105,8 @@ void Shader::add_uniform(std::string p_uniform_name, std::string p_unifom_type)
         LOGGER << std::string("Failed to create uniform ").append(p_uniform_name);
     else
     {
-        m_uniform_locations.push_back(std::pair<std::string, GLint>(p_uniform_name, location));
-        m_uniform_type.push_back(std::pair<std::string, std::string>(p_uniform_name, p_unifom_type));
+        m_uniform_locations[p_uniform_name] = location;
+        m_uniform_types[p_uniform_name] = p_unifom_type;
     }
 }
 
@@ -151,6 +151,7 @@ void Shader::add_all_uniforms(const std::string& p_shader_text)
                 it = end;
             }
 
+            //debug code
             std::string uniform_type = current_search.substr(type_start, current_search.find(' ', type_start) - type_start);
             std::cout << "TYPE: " << uniform_type << ':' << '\n';
 
@@ -166,13 +167,12 @@ void Shader::add_all_uniforms(const std::string& p_shader_text)
 
             size_t uniform_name_end = std::fmin(current_search.find(' ', uniform_name_start), current_search.find(';', uniform_name_start)) - uniform_name_start;
 
+            //debug code
             std::string uniform_name = current_search.substr(uniform_name_start, uniform_name_end);
             std::cout << "NAME: " << uniform_name << ':' << '\n';
 
             add_uniform(uniform_name, uniform_type);
         }
-
-
 
         //starts the next search at the end of the current token
         current_search = current_search.substr(token_location + uniform_token.size(), current_search.size());
@@ -181,6 +181,37 @@ void Shader::add_all_uniforms(const std::string& p_shader_text)
         token_location = current_search.find(uniform_token);
     }
 
+}
+
+void Shader::update_uniforms(RenderingEngine* p_rendering_engine)
+{
+    for(auto it = m_uniform_types.begin(); it != m_uniform_types.end(); ++it)
+    {
+        std::string name = it->first;
+        std::string type = it->second;
+
+        if(type == "vec3")
+            set_uniform_3f(name, p_rendering_engine->get_value_map()->get_vector_3f(name));
+        else if(type == "float")
+            set_uniform_f(name, p_rendering_engine->get_value_map()->get_float(name));
+        else if(type == "int")
+            set_uniform_i(name, p_rendering_engine->get_value_map()->get_int(name));
+    }
+}
+
+void Shader::set_uniform_3f(std::string& p_name, const Vector3f& p_vector)
+{
+    glUniform3f(m_uniform_locations[p_name], p_vector.get_x(), p_vector.get_y(), p_vector.get_z());
+}
+
+void Shader::set_uniform_f(std::string& p_name, const float& p_float)
+{
+    glUniform1f(m_uniform_locations[p_name], p_float);
+}
+
+void Shader::set_uniform_i(std::string& p_name, const int& p_int)
+{
+    glUniform1i(m_uniform_locations[p_name], p_int);
 }
 
 bool Shader::uniform_exists(const std::string p_uniform_name)

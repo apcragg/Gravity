@@ -9,6 +9,7 @@
 
 class RenderingEngine;
 class MainEngine;
+class Shader;
 
 class EngineObject
 {

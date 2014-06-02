@@ -4,7 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include <vector>
+#include <map>
 #include <regex>
 #include <math.h>
 
@@ -12,6 +12,10 @@
 #include "glfw3.h"
 
 #include "Logger.h"
+#include "RenderingEngine.h"
+#include "Vector3f.h"
+
+class RenderingEngine;
 
 class Shader
 {
@@ -24,6 +28,11 @@ class Shader
         void link_shader();
         void add_uniform(std::string, std::string);
         void add_all_uniforms(const std::string&);
+        void update_uniforms(RenderingEngine*);
+
+        void set_uniform_3f(std::string&, const Vector3f&);
+        void set_uniform_f(std::string&, const float&);
+        void set_uniform_i(std::string&, const int&);
 
         bool uniform_exists(const std::string);
 
@@ -32,8 +41,8 @@ class Shader
     private:
         GLuint m_program;
         std::string m_name;
-        std::vector<std::pair<std::string, GLint>> m_uniform_locations;
-        std::vector<std::pair<std::string, std::string>> m_uniform_type;
+        std::map<std::string, GLint> m_uniform_locations;
+        std::map<std::string, std::string> m_uniform_types;
 
 
 };
