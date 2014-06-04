@@ -4,11 +4,18 @@ std::map<std::string, Mesh::MeshData*> Mesh::s_mesh_lib;
 
 Mesh::Mesh(const std::string& p_name) : m_mesh_name(p_name)
 {
-    glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_vbo));
-    glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_ibo));
-    glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_abo));
+    if(s_mesh_lib.find(m_mesh_name) != s_mesh_lib.end());
+    else
+    {
+        s_mesh_lib[m_mesh_name] = new MeshData;
 
-    load_mesh(m_mesh_name);
+        glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_vbo));
+        glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_ibo));
+        glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_abo));
+
+        load_mesh(m_mesh_name);
+    }
+
 }
 
 void Mesh::draw()
@@ -92,7 +99,10 @@ Mesh::~Mesh()
 
 void Mesh::free_resources()
 {
-
+    for(auto it = s_mesh_lib.begin(); it != s_mesh_lib.end(); it++)
+    {
+        delete it->second;
+    }
 }
 
 

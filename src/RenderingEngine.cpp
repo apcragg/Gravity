@@ -19,6 +19,8 @@ void RenderingEngine::initialize()
     for(int i = 0; i < 1; i++)
     {
         Mesh m("test");
+        Mesh p("plane");
+        Mesh s("highSphere");
     }
 
     //setting up shaders
@@ -66,4 +68,5 @@ RenderingEngine::~RenderingEngine()
     }
 
     delete m_value_map;
+    Mesh::free_resources();
 }
