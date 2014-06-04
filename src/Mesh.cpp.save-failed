@@ -4,9 +4,9 @@ std::map<std::string, Mesh::MeshData*> Mesh::s_mesh_lib;
 
 Mesh::Mesh(const std::string& p_name) : m_mesh_name(p_name)
 {
-    glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_vbo));
-    glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_ibo));
-    glGenBuffers(1, &(s_mesh_lib[m_mesh_name]->m_abo));
+   // glGenBuffers(1, &s_mesh_lib[m_mesh_name]->m_vbo);
+   // glGenBuffers(1, &s_mesh_lib[m_mesh_name]->m_ibo);
+   // glGenBuffers(1, &s_mesh_lib[m_mesh_name]->m_abo);
 
     load_mesh(m_mesh_name);
 }

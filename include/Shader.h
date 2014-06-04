@@ -14,6 +14,7 @@
 #include "Logger.h"
 #include "RenderingEngine.h"
 #include "Vector3f.h"
+#include "Util.h"
 
 class RenderingEngine;
 

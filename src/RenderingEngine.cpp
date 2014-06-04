@@ -16,7 +16,7 @@ void RenderingEngine::initialize()
 
     glClearColor(0.65f, 0.5f, 0.9f, 1.0f);
 
-    for(int i = 0; i < 20; i++)
+    for(int i = 0; i < 1; i++)
     {
         Mesh m("test");
     }

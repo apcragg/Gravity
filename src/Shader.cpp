@@ -1,7 +1,5 @@
 #include "Shader.h"
 
-static std::string load_shader(const std::string p_file_name);
-
 Shader::Shader(std::string p_name) : m_name(p_name)
 {
     initialize();
@@ -16,8 +14,8 @@ void Shader::initialize()
    else
         LOGGER << std::string("Succesfuly initialized shader program ").append(m_name);
 
-    std::string vertex_shader = load_shader(std::string(m_name).append(".vs"));
-    std::string fragment_shader = load_shader(std::string(m_name).append(".fs"));
+    std::string vertex_shader = Util::load_file("shaders/" + m_name, ".vs");
+    std::string fragment_shader = Util::load_file("shaders/" + m_name, ".fs");
 
     add_shader(vertex_shader, GL_VERTEX_SHADER);
     add_shader(fragment_shader, GL_FRAGMENT_SHADER);
@@ -230,33 +228,4 @@ bool Shader::uniform_exists(const std::string p_uniform_name)
 Shader::~Shader()
 {
     //dtor
-}
-
-//================================================================//
-//                     Static loading methods
-//================================================================//
-
-static std::string load_shader(const std::string p_file_name)
-{
-    std::string shader_text;
-    std::ifstream in_file;
-
-	std::string path = std::string("./res/shaders/");
-	path.append(p_file_name);
-
-    in_file.open(path.c_str());
-
-    if(in_file.is_open())
-    {
-        while(in_file.good())
-        {
-            std::string line;
-            std::getline(in_file, line);
-            shader_text.append(line + "\n");
-        }
-    }
-
-    in_file.close();
-
-    return shader_text;
 }

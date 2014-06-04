@@ -12,6 +12,7 @@ class Vector3f
         Vector3f() : x(0.0f), y(0.0f), z(0.0f) {}
         Vector3f(const Vector3f& cpy) : x(cpy.get_x()), y(cpy.get_y()), z(cpy.get_z()) {}
         Vector3f(float x, float y, float z) : x(x), y(y), z(z) {}
+        Vector3f(float* f) : x(f[0]), y(f[1]), z(f[2]) {}
         inline void operator=(Vector3f& v) { x = v.get_x(); y = v.get_y(), z = v.get_z(); }
         inline void operator=(float f) { x = f; y = f; z = f; }
 
@@ -31,6 +32,9 @@ class Vector3f
 
         inline float dot(Vector3f& v) { return x * v.get_x() + y * v.get_y() + z * v.get_z(); }
         inline float length() { return (float) sqrt(x * x + y * y + z * z); }
+
+        inline void normalize() { x /= length(); y /= float(); z /= length(); }
+        inline Vector3f normalized() { Vector3f v(*this); v.normalize(); return v; }
 
         const std::string to_str()
         {

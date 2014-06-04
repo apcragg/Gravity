@@ -5,25 +5,30 @@
 #include "glfw3.h"
 
 #include <string>
-#include <fstream>
-#include <iostream>
+#include <cstdlib>
+#include <map>
+#include <vector>
 
+#include "Util.h"
+#include "Vector3f.h"
+#include "Vector2f.h"
+
+class Vector3f;
 
 class Mesh
 {
     public:
-        Mesh(const std::string);
+        Mesh(const std::string&);
 
         void draw();
         inline std::string get_name() { return m_mesh_name; }
 
+        static void free_resources();
+
         virtual ~Mesh();
     protected:
     private:
-        void load_mesh(std::string);
-        static std::string load_file(std::string);
-
-        struct MeshData
+         struct MeshData
         {
             GLuint m_vbo;
             GLuint m_ibo;
@@ -31,8 +36,13 @@ class Mesh
             int m_size;
         };
 
-    MeshData m_mesh_data;
-    std::string m_mesh_name;
+        static std::map<std::string, MeshData*> s_mesh_lib;
+
+        void load_mesh(const std::string&);
+        void load_vec(std::string&, int, float*);
+        static std::string load_file(const std::string&);
+
+        std::string m_mesh_name;
 };
 
 #endif // MESH_H
