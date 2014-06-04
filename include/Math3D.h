@@ -1,5 +1,5 @@
-#ifndef VECTOR3F_H
-#define VECTOR3F_H
+#ifndef MATH3D_H
+#define MATH3D_H
 
 #include <math.h>
 #include <sstream>
@@ -43,12 +43,62 @@ class Vector3f
             return buff.str();
         }
 
-        Vector3f cross(Vector3f&);
+        Vector3f cross(Vector3f&) { return Vector3f(); }
 
-        virtual ~Vector3f();
+        virtual ~Vector3f() {}
     protected:
     private:
         float x, y,z;
 };
 
-#endif // VECTOR3F_H
+class Vector2f
+{
+    public:
+        Vector2f() : x(0.0f), y(0.0f) {}
+        Vector2f(float p_x, float p_y) : x(p_x), y(p_y) {}
+        Vector2f(float* p_f) : x(p_f[0]), y(p_f[1]) {}
+        Vector2f(const Vector2f& p_v) : x(p_v.get_x()), y(p_v.get_y()) {}
+
+        inline float get_x() const { return x; }
+        inline float get_y() const{ return y; }
+        inline void set_x(float p_x) { x = p_x; }
+        inline void set_y(float p_y) { y = p_y; }
+
+        inline float length() { return sqrt(x * x + y * y); }
+        inline Vector2f normalized() { Vector2f v(*this); v.normalize(); return v; }
+        inline void normalize() { x /= length(); y /= length(); }
+
+        const std::string to_str()
+        {
+            std::ostringstream buff;
+            buff << "x: " << x << ", y: " << y;
+            return buff.str();
+        }
+
+        virtual ~Vector2f() {}
+    protected:
+    private:
+        float x, y;
+};
+
+class Matrix4f
+{
+    public:
+        Matrix4f() { init(); }
+        Matrix4f(const Matrix4f& p_cpy) { for(int i = 0; i < 16; i++) m_matrix[i % 4][ i / 4] = p_cpy.at(i % 4, i / 4); }
+
+        inline float at(int i, int j) const { return m_matrix[i][j]; }
+        inline void init()
+        {
+            for(int i = 0; i < 4; i++)
+                for(int j = 0; j < 4; j++)
+                    m_matrix[i][j] = i == j ? 1 : 0;
+        }
+
+    protected:
+
+    private:
+        float m_matrix[4][4];
+};
+
+#endif // MATH3D_H

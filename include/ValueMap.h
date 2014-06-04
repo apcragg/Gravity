@@ -1,7 +1,7 @@
 #ifndef VALUEMAP_H
 #define VALUEMAP_H
 
-#include "Vector3f.h"
+#include "Math3D.h"
 #include <map>
 
 class ValueMap

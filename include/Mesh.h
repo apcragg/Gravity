@@ -10,8 +10,7 @@
 #include <vector>
 
 #include "Util.h"
-#include "Vector3f.h"
-#include "Vector2f.h"
+#include "Math3D.h"
 
 class Vector3f;
 

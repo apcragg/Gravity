@@ -122,8 +122,6 @@ void Shader::add_all_uniforms(const std::string& p_shader_text)
     //while there are still tokens being found
     while(token_location != std::string::npos)
     {
-        std::cout << "loc: " << token_location << '\n';
-
         size_t last_line = current_search.rfind(';', token_location);
         bool is_commented = false;
 
@@ -151,7 +149,6 @@ void Shader::add_all_uniforms(const std::string& p_shader_text)
 
             //debug code
             std::string uniform_type = current_search.substr(type_start, current_search.find(' ', type_start) - type_start);
-            std::cout << "TYPE: " << uniform_type << ':' << '\n';
 
             size_t uniform_name_start = type_start + uniform_type.size(); //default
 
@@ -167,8 +164,7 @@ void Shader::add_all_uniforms(const std::string& p_shader_text)
 
             //debug code
             std::string uniform_name = current_search.substr(uniform_name_start, uniform_name_end);
-            std::cout << "NAME: " << uniform_name << ':' << '\n';
-
+            LOGGER << std::string("Uniform found: " + uniform_name);
             add_uniform(uniform_name, uniform_type);
         }
 
