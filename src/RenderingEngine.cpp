@@ -18,10 +18,18 @@ void RenderingEngine::initialize()
 
     for(int i = 0; i < 1; i++)
     {
-        Mesh m("test");
-        Mesh p("plane");
-        Mesh s("highSphere");
+       // Mesh m("test");
+        Mesh p("lightL");
+       // Mesh s("highSphere");
     }
+
+    Matrix4f m;
+    m.set_translation(Vector3f(2.3f, 6.5f, 1.2f));
+    std::cout << m.to_str();
+
+    Matrix4f m1;
+    m1.init_perspective(70.0f, 16.0f / 9.0f, 5.0f, 1000.0f);
+    std::cout << m1.to_str();
 
     //setting up shaders
 

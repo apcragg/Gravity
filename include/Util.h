@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 class Util
 {
@@ -60,6 +61,13 @@ class Util
             }
 
             return p_search_string.size();
+        }
+
+        static std::string num_to_str(float p_num)
+        {
+            std::stringstream s;
+            s << p_num;
+            return s.str();
         }
     protected:
     private:

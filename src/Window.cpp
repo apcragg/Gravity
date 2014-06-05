@@ -4,7 +4,7 @@
 
 Window::Window(int pWidth, int pHeight) : mWidth(pWidth), mHeight(pHeight)
 {
-    LOG("Created window");
+
 }
 
 void Window::open_window()
@@ -22,6 +22,8 @@ void Window::open_window()
         glfwMakeContextCurrent(mWindow);
 
     glfwSetKeyCallback(mWindow, key_callback);
+
+    LOG("Created window");
 }
 
 void Window::destroy_window()

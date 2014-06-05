@@ -24,6 +24,7 @@ int main()
 
     if(PAUSE)
     {
+        std::cin.clear();
         std::cout << "Press Enter to continue. . .\n";
         std::cin.get();
     }
